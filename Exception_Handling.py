@@ -93,18 +93,46 @@ def add_student():
   else:
     entry = {"name":name,"marks":marks}
     create_student(entry)
+
 def show_grade():
   try:
     with open("marks.json","r") as file:
       student = json.load(file)
       for data in student:
-        print(f"{data['name']}:{data['marks']}")
+        grade = calculate_grade(data["marks"])
+        print(f"{data['name']}:{data['marks']} -> {grade}")
   except FileNotFoundError as e:
     print("No student record found!")
 
-try:
-  add_student()
-except InvalidMarksError as e:
-  print(e)
+def calculate_grade(marks):
+  if marks <= 100 and marks >90:
+    return "A+"
+  elif marks <= 90 and marks >80:
+    return "A"
+  elif marks <= 80 and marks >70:
+    return "B+"
+  elif marks <= 70 and marks >60:
+    return "B"
+  elif marks <= 60 and marks >=50:
+    return "C"
+  elif marks < 50:
+    return "fail"
 
-show_grade()
+print("Student Marks Management System:")
+print("1. Add Student 2.View Student 3.Exit ")
+while True:
+  option = int(input("Enter your option: "))
+  if option == 1:
+    try:
+      add_student()
+    except InvalidMarksError as e:
+      print(e)
+  elif option == 2:
+    show_grade()
+  elif option == 3:
+    print("exiting program!")
+    break
+  else:
+    print("invalid choice!")
+  
+  
