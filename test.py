@@ -1,53 +1,72 @@
-import os,json
+import json,random
 from datetime import datetime
-def show_files():
-  entries = os.listdir()
-  return entries
 
-def file_size(file_path):
-  return os.path.getsize(file_path) 
+def generate_password(text):
+  random_number = str(random.randint(10000000,999999999))
+  unique_password = text + random_number
+  return unique_password
 
-def create_folder(folder_name):
-  return os.mkdir(f"{folder_name}")
-
-def log_info(entry):
+def password_save(psd,name,time):
+  entry = {"password":psd,"name":name,"time":time}
   try:
-    # if os.path.exists("log.json"):
-    with open("log.json","r") as file:
-      log = json.load(file)
-    # else:
-    #   print("file does not exist!")
+    with open("password.json","r") as file:
+      password = json.load(file)
   except FileNotFoundError:
-    log = []
-  log.append(entry)
-  with open("log.json","w") as file:
-    json.dump(log,file,indent=4)
-    
+    password = []
+  password.append(entry)
+  with open("password.json","w") as file:
+    json.dump(password,file,indent=4)
 
+def show_passwords():
+  try:
+    with open("password.json","r") as file:
+      password = json.load(file)
+      for p in password:
+        print(f"{p['password']}")
+  except FileNotFoundError as e:
+    print(e)
+
+def search_password(s_name):
+  try:
+    with open("password.json","r") as file:
+      password = json.load(file)
+      for p in password:
+        if p["name"] == s_name:
+          print(f"{p['password']},{p['name']},{p['time']}")
+  except FileNotFoundError:
+    print("No password found!")
+    
+def delete_password(s_name):
+  try:
+    with open("password.json","r") as file:
+      password = json.load(file)
+      password = [p for p in password if p["name"] != s_name]
+      with open("password.json","w") as file:
+        json.dump(password,file,indent=4)
+        print("password deleted successfully!")
+  except FileNotFoundError:
+    print("password not found!") 
 while True:
-  date_time = datetime.today()
-  print("File Manager System")
-  print("1.View all files 2.File size 3.Create folder 4.Exit")
+  date_time = datetime.today().strftime("%D-%M-%Y,%H:%M:%S")
+  print("Password Manager Application")
+  print("1. Generate password 2.Show all passwords 3.Search password 4.Delete password 5.Exit")
   option = int(input("enter your option: "))
   if option == 1:
-    print(show_files())
-    entry = {"action":"view files","time":f"{date_time}"}
-    log_info(entry)
-  elif option == 2:
-    file = input("enter file name: ")
-    files = show_files()
-    for f in files:
-      if f == file:
-        size = file_size(f)
-        print(size)
-        entry = {"action":"file size checked","name":size,"time":f"{date_time}"}
-        log_info(entry)
+    text = input("enter your text to generate random password: ")
+    name = input("enter your service name: ")
+    random_psd = generate_password(text)
+    password_save(random_psd,name,date_time)
+    print("password saved sucessfully!")
+  elif option ==  2:
+    show_passwords()
   elif option == 3:
-    folder = input("enter folder name that you want to create: ")
-    print(create_folder(folder))
-    entry = {"action": "folder created", "name":folder, "time":f"{date_time}"}
-    log_info(entry)
+    name = input("enter service name to search password: ")
+    search_password(name)
   elif option == 4:
+    name = input("enter service name to search password: ")
+    delete_password(name)
+  elif option == 5:
     break
   else:
     print("invalid choice please choose correct one option!")
+
