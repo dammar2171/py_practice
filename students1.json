@@ -1,0 +1,26 @@
+[
+    {
+        "name": "dammar",
+        "english": 88,
+        "math": 90,
+        "science": 98
+    },
+    {
+        "name": "nirmala",
+        "english": 78,
+        "math": 34,
+        "science": 90
+    },
+    {
+        "name": "prabin",
+        "english": 78,
+        "math": 34,
+        "science": 23
+    },
+    {
+        "name": "dheeraj",
+        "english": 89,
+        "math": 56,
+        "science": 45
+    }
+]
