@@ -1,0 +1,21 @@
+{
+    "name": "My School",
+    "teachers": [
+        {
+            "name": "nirmala shahi",
+            "subject": "english",
+            "salary": 890000
+        }
+    ],
+    "students": [
+        {
+            "name": "dammar",
+            "roll": 1,
+            "subjects": {
+                "english": 89
+            },
+            "average": 89.0,
+            "grade": "A"
+        }
+    ]
+}

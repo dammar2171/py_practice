@@ -1,0 +1,35 @@
+{
+    "school_name": "svm",
+    "teachers": [
+        {
+            "name": "Dheeraj Bokati",
+            "subject": "math",
+            "salary": 76000.0
+        },
+        {
+            "name": "Prabin Jagari",
+            "subject": "computer",
+            "salary": 67000.0
+        },
+        {
+            "name": "Nirmala shahi",
+            "subject": "management",
+            "salary": 90000.0
+        }
+    ],
+    "students": [
+        {
+            "name": "Dammar Bhatt",
+            "roll": 1001,
+            "subjects": {
+                "math": 89.0,
+                "management": 89.0
+            }
+        },
+        {
+            "name": "Dipesh awasthii",
+            "roll": 1002,
+            "subjects": {}
+        }
+    ]
+}
